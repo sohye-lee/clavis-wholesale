@@ -26,10 +26,27 @@ model Product {
   description String?
   price Int 
   msrp Int @default(0)
+  thumbnail String?
+  images String[] 
+
   categoryId String 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   category Category @relation(references: [id], fields: [categoryId])
+}
+
+model Order {
+  id String @id @default(uuid())
+  products  String[]
+  name  String?
+  company String 
+  email String 
+  phone Int?
+  paymentMethod String?
+  paid  Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
