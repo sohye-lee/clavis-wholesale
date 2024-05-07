@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,28 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Category {
-  id String @id @default(uuid())
-  name  String 
-
-  products Product[] 
-}
-
 model Product {
   id  String @id @default(uuid())
   title String 
+  type String 
   description String?
+  bandColor String?
+  platingColor  String?
   price Int 
   msrp Int @default(0)
   thumbnail String?
   images String[] 
-
-  categoryId String 
+  link String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  category Category @relation(references: [id], fields: [categoryId])
 }
 
 model Order {
@@ -49,4 +36,18 @@ model Order {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  client Client @relation(fields: [email], references: [id])
+}
+
+model Client {
+  id String @id @default(uuid())
+  company String?
+  email String @unique
+  phone Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders Order[]
 }
