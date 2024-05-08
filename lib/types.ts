@@ -11,3 +11,12 @@ export interface Product {
   images: string[];
   link?: string;
 }
+
+interface ProductInfoToOrder {
+  productId: string;
+  quantity: number;
+}
+
+export interface ProductListToOrder {
+  products: ProductInfoToOrder[];
+}

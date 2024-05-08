@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Header from "@/components/Header";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Clavis Wholesale',
-  description: 'Clavis for Retail',
+  title: "Clavis Wholesale",
+  description: "Clavis for Retail",
 };
 
 export default function RootLayout({
@@ -17,8 +18,9 @@ export default function RootLayout({
   return (
     <html>
       <body className={inter.className}>
-        <main className="flex min-h-screen flex-col items-center p-24">
-          <div className="w-full max-w-4xl flex flex-col items-center">
+        <Header />
+        <main className="flex min-h-screen flex-col items-center p-24 w-full px-4">
+          <div className="w-full max-w-6xl flex flex-col items-center">
             {children}
           </div>
         </main>

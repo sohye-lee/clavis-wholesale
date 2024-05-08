@@ -4,7 +4,7 @@ import FormItem from "@/components/FormItem";
 import SelectItem from "@/components/SelectItem";
 import { bandColors, platingColors, productTypes } from "@/lib/constants";
 import useMutation from "@/lib/useMutation";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IconPhoto } from "@tabler/icons-react";
@@ -23,7 +23,10 @@ interface ProductForm {
   images?: string[];
   link?: string;
 }
-export default function AddProductPage() {
+export default function EditProductPage() {
+  const path = usePathname();
+  const id = path.split("edit/")[1];
+  console.log(id);
   const router = useRouter();
   const {
     register,

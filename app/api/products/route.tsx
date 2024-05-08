@@ -1,11 +1,11 @@
-import db from '@/prisma/db';
-import { NextRequest, NextResponse } from 'next/server';
+import db from "@/prisma/db";
+import { NextRequest, NextResponse } from "next/server";
 import {
   S3Client,
   ListObjectsCommand,
   PutObjectCommand,
-} from '@aws-sdk/client-s3';
-import { env } from '@/env';
+} from "@aws-sdk/client-s3";
+import { env } from "@/env";
 
 const Bucket = env.AWS_BUCKET;
 const s3 = new S3Client({
@@ -35,11 +35,9 @@ export const POST = async (req: NextRequest) => {
       platingColor,
       price,
       msrp,
+      thumbnail,
       link,
     } = await req.json();
-
-    const formData = await req.formData();
-    const files = formData.getAll('file') as File[];
 
     const product = await db.product.create({
       data: {
@@ -50,26 +48,21 @@ export const POST = async (req: NextRequest) => {
         platingColor,
         price: Number(price),
         msrp: Number(msrp),
+        thumbnail,
         link,
       },
     });
 
-    // Upload images to s3: https://medium.com/@antoinewg/upload-a-file-to-s3-with-next-js-13-4-and-app-router-e04930601cd6
-    // https://github.com/ryanto/next-s3-upload/blob/master/packages/next-s3-upload/src/backend/handler.ts
-    const response = await Promise.all(
-      files.map(async (file) => {
-        const Body = (await file.arrayBuffer()) as Buffer;
-        s3.send(new PutObjectCommand({ Bucket, Key: file.name, Body }));
-      })
-    );
-    console.log;
-
     return NextResponse.json({
       ok: true,
       product,
-      message: 'Successfully added.',
+      message: "Successfully added.",
     });
   } catch (error) {
     console.log(error);
+    return NextResponse.json({
+      ok: false,
+      message: (error as Error).message,
+    });
   }
 };

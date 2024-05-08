@@ -1,14 +1,14 @@
-'use client';
-import ProductItem from '@/components/ProductItem';
-import { Product } from '@/lib/types';
-import useMutation from '@/lib/useMutation';
-import { useEffect, useState } from 'react';
+"use client";
+import ProductItem from "@/components/ProductItem";
+import { Product } from "@/lib/types";
+import useMutation from "@/lib/useMutation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>();
 
   useEffect(() => {
-    fetch('/api/products')
+    fetch("/api/products")
       .then((res) => res.json())
       .then((data) => setProducts(data?.products));
   }, []);
@@ -22,7 +22,7 @@ export default function Home() {
         user-friendly order forms, and reach out via our contact page for any
         additional inquiries.
       </p>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3">
         {products &&
           products?.length > 0 &&
           products.map((product) => (
