@@ -13,12 +13,12 @@ export default function ProductsPage() {
   }, []);
   return (
     <div className="w-full">
-      <h1 className="text-lg font-medium">Products</h1>
+      <h1 className="text-2xl mb-12 font-medium">All Products</h1>
       <div className="w-full">
         <table className="w-full">
           <thead>
-            <tr>
-              <td>Image</td>
+            <tr className="border-b border-t border-slate-400">
+              <td className="py-3 px-2">Image</td>
               <td>Title</td>
               <td>Band Color</td>
               <td>Plating Color</td>
@@ -55,7 +55,7 @@ export default function ProductsPage() {
                     </a>
                   </td>
                   <td>
-                    <div className="flex gap-2">
+                    <div className="inline-flex gap-2">
                       <a
                         href={`/admin/products/edit/${product?.id}`}
                         className="px-2 py-1 border text-sm border-slate-400 rounded hover:bg-slate-800 hover:text-white"

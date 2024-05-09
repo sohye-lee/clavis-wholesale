@@ -54,9 +54,11 @@ export default function ProductItem({
         <div className="flex flex-col gap-2">
           <div>
             <p className="text-sm text-slate-400">{capitalize(product.type)}</p>
-            <h3 className="text-lg uppercase tracking-wide">{product.title}</h3>
+            <h3 className="text-xl font-medium uppercase tracking-wide">
+              {product.title}
+            </h3>
 
-            <p className="text-lg">
+            <p className="text-md">
               WSP ${product.price} |{" "}
               <span className=" ">MSRP ${product.msrp}</span>
             </p>
