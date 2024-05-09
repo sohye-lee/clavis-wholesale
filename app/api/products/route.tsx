@@ -1,20 +1,5 @@
 import db from "@/prisma/db";
 import { NextRequest, NextResponse } from "next/server";
-import {
-  S3Client,
-  ListObjectsCommand,
-  PutObjectCommand,
-} from "@aws-sdk/client-s3";
-import { env } from "@/env";
-
-const Bucket = env.AWS_BUCKET;
-const s3 = new S3Client({
-  region: env.AWS_REGION,
-  credentials: {
-    accessKeyId: env.AWS_ACCESS_KEY_ID as string,
-    secretAccessKey: env.AWS_SECRET_ACCESS_KEY as string,
-  },
-});
 
 export const GET = async () => {
   try {
