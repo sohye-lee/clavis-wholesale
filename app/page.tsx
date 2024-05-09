@@ -22,7 +22,7 @@ export default function Home() {
       <h1 className="text-center uppercase text-3xl tracking-wider mb-5">
         Clavis Wholesale
       </h1>
-      <p className="text-md mb-16 text-center max-w-[640px] mx-auto">
+      <p className="text-md mb-12 text-center max-w-[640px] mx-auto">
         Browse our extensive catalog, conveniently place orders using our
         user-friendly order forms, and reach out via our contact page for any
         additional inquiries.

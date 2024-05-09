@@ -19,7 +19,7 @@ export default function RootLayout({
     <html>
       <body className={inter.className}>
         <Header />
-        <main className="flex min-h-screen flex-col items-center p-24 w-full px-4">
+        <main className="relative z-1 flex min-h-screen flex-col items-center pt-28 w-full px-4">
           <div className="w-full max-w-6xl flex flex-col items-center">
             {children}
           </div>

@@ -31,7 +31,7 @@ export default function ProductItem({
     );
     setProductListToOrder(
       (prev) => [
-        ...productListToOrder.filter((item) => item?.productId != product.id),
+        ...prev.filter((item) => item?.productId != product.id),
         { productId: product.id, quantity },
       ]
       //   [
@@ -41,7 +41,7 @@ export default function ProductItem({
     );
   };
   return (
-    <div className="relative bg-white p-4 border border-slate-300 hover:border-slate-500 rounded-lg flex flex-col md:flex-row md:items-stretch gap-3">
+    <div className="relative z-10 bg-white p-4 border border-slate-300 hover:border-slate-500 rounded-lg flex flex-col md:flex-row md:items-stretch gap-3">
       <div className="aspect-square relative w-full md:w-1/2  bg-stone-200">
         <Image
           src={product.thumbnail || ""}
