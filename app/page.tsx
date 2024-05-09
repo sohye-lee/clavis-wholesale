@@ -1,17 +1,22 @@
 "use client";
 import ProductItem from "@/components/ProductItem";
-import { Product } from "@/lib/types";
+import { Product, ProductInfoToOrder } from "@/lib/types";
 import useMutation from "@/lib/useMutation";
 import { useEffect, useState } from "react";
 
+const initialList: ProductInfoToOrder[] = [];
+
 export default function Home() {
   const [products, setProducts] = useState<Product[]>();
+  const [productListToOrder, setProductListToOrder] =
+    useState<ProductInfoToOrder[]>(initialList);
 
   useEffect(() => {
     fetch("/api/products")
       .then((res) => res.json())
       .then((data) => setProducts(data?.products));
-  }, []);
+    console.log(productListToOrder);
+  }, [productListToOrder]);
   return (
     <div className="w-full">
       <h1 className="text-center uppercase text-3xl tracking-wider mb-5">
@@ -26,7 +31,12 @@ export default function Home() {
         {products &&
           products?.length > 0 &&
           products.map((product) => (
-            <ProductItem key={product.id} product={product} />
+            <ProductItem
+              key={product.id}
+              product={product}
+              setProductListToOrder={setProductListToOrder}
+              productListToOrder={productListToOrder}
+            />
           ))}
       </div>
     </div>

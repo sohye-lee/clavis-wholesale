@@ -1,23 +1,35 @@
 "use client";
-import { Product } from "@/lib/types";
-import useMutation from "@/lib/useMutation";
-import { capitalize, capitalizeSentence } from "@/lib/utils";
-import {
-  IconExternalLink,
-  IconGlobe,
-  IconLink,
-  IconLockOpen,
-  IconOutbound,
-  IconWebhook,
-} from "@tabler/icons-react";
+import { Product, ProductInfoToOrder } from "@/lib/types";
+import { capitalize } from "@/lib/utils";
+import { IconExternalLink } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 interface ProductItemProps {
   product: Product;
+  setProductListToOrder: Dispatch<SetStateAction<ProductInfoToOrder[]>>;
+  productListToOrder: ProductInfoToOrder[];
 }
-export default function ProductItem({ product }: ProductItemProps) {
+
+export default function ProductItem({
+  product,
+  setProductListToOrder,
+}: ProductItemProps) {
+  const [quantity, setQuantity] = useState<number>(0);
+  const handleAddToCart = (e: FormEvent) => {
+    e.preventDefault();
+    setProductListToOrder((prev) => [
+      ...prev,
+      { productId: product.id, quantity },
+    ]);
+  };
   return (
     <div className="relative bg-white p-4 border border-slate-300 hover:border-slate-500 rounded-lg flex flex-col md:flex-row md:items-stretch gap-3">
       <div className="aspect-square relative w-full md:w-1/2  bg-stone-200">
@@ -53,14 +65,19 @@ export default function ProductItem({ product }: ProductItemProps) {
           </div>
         </div>
         <div>
-          <div className="flex items-stretch gap-1 mt-3">
+          <form className="flex items-stretch gap-1 mt-3">
             <input
               type="number"
               className="w-16 pl-3 pr-0 py-1"
-              placeholder="0"
+              value={quantity}
+              onChange={(e: FormEvent<HTMLInputElement>) =>
+                setQuantity(Number((e.target as HTMLInputElement).value))
+              }
             />
-            <button className="py-2 px-3 m-0">Add</button>
-          </div>
+            <button onClick={handleAddToCart} className="py-2 px-3 m-0">
+              Add
+            </button>
+          </form>
         </div>
       </div>
       {product.link && (

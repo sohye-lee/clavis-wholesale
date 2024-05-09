@@ -12,11 +12,7 @@ export interface Product {
   link?: string;
 }
 
-interface ProductInfoToOrder {
+export interface ProductInfoToOrder {
   productId: string;
   quantity: number;
-}
-
-export interface ProductListToOrder {
-  products: ProductInfoToOrder[];
 }
