@@ -21,14 +21,24 @@ interface ProductItemProps {
 export default function ProductItem({
   product,
   setProductListToOrder,
+  productListToOrder,
 }: ProductItemProps) {
   const [quantity, setQuantity] = useState<number>(0);
   const handleAddToCart = (e: FormEvent) => {
     e.preventDefault();
-    setProductListToOrder((prev) => [
-      ...prev,
-      { productId: product.id, quantity },
-    ]);
+    const newList = productListToOrder.filter(
+      (item) => item?.productId != product.id
+    );
+    setProductListToOrder(
+      (prev) => [
+        ...productListToOrder.filter((item) => item?.productId != product.id),
+        { productId: product.id, quantity },
+      ]
+      //   [
+      //   ...prev,
+      //   { productId: product.id, quantity },
+      // ]
+    );
   };
   return (
     <div className="relative bg-white p-4 border border-slate-300 hover:border-slate-500 rounded-lg flex flex-col md:flex-row md:items-stretch gap-3">

@@ -13,7 +13,7 @@ import {
 export default function Header() {
   const [orderList, setOrderList] = useState();
   return (
-    <div className="w-full fixed top-0 left-0 bg-white py-2 px-4 border-b border-slate-400 flex justify-center">
+    <div className="w-full z-1000 fixed top-0 left-0 bg-white py-2 px-4 border-b border-slate-400 flex justify-center">
       <div className="w-full max-w-6xl ">
         <div className="flex items-center justify-between">
           <Link href="/">
