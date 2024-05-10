@@ -136,6 +136,7 @@ export default function AddProductPage() {
             type="input"
             dataType="number"
             placeholder="0"
+            step=".01"
             required={true}
           />
           <FormItem
@@ -145,6 +146,7 @@ export default function AddProductPage() {
             type="input"
             dataType="number"
             placeholder="0"
+            step=".01"
             required={false}
           />
           <FormItem

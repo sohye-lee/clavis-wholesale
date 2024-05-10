@@ -85,7 +85,8 @@
     @apply px-3 py-2 rounded   w-full;
     border: 1px solid #999;
   }
-  button {
+  button,
+  .btn {
     @apply text-sm uppercase bg-slate-800 text-white tracking-[1px] px-4 py-2 rounded mt-2;
     &:hover {
       @apply bg-stone-700;

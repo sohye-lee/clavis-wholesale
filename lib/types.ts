@@ -2,6 +2,7 @@ export interface Product {
   id: string;
   title: string;
   type: string;
+  collection?: string;
   description?: string;
   bandColor?: string;
   platingColor?: string;

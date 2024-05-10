@@ -29,16 +29,10 @@ export default function ProductItem({
     const newList = productListToOrder.filter(
       (item) => item?.productId != product.id
     );
-    setProductListToOrder(
-      (prev) => [
-        ...prev.filter((item) => item?.productId != product.id),
-        { productId: product.id, quantity },
-      ]
-      //   [
-      //   ...prev,
-      //   { productId: product.id, quantity },
-      // ]
-    );
+    setProductListToOrder((prev) => [
+      ...prev.filter((item) => item?.productId != product.id),
+      { productId: product.id, quantity },
+    ]);
   };
   return (
     <div className="relative z-10 bg-white p-4 border border-slate-300 hover:border-slate-500 rounded-lg flex flex-col md:flex-row md:items-stretch gap-3">

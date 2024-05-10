@@ -1,7 +1,17 @@
-import { ProductInfoToOrder } from '@/lib/types';
-import React, { createContext } from 'react';
+"use client";
+import React from "react";
+import { SWRConfig } from "swr";
 
-const OrderListContext = createContext<ProductInfoToOrder[]>([]);
 export default function Providers({ children }: { children: React.ReactNode }) {
-  return <div></div>;
+  return (
+    <SWRConfig
+      value={{
+        refreshInterval: 3000,
+        fetcher: (resource, init) =>
+          fetch(resource, init).then((res) => res.json()),
+      }}
+    >
+      {children}
+    </SWRConfig>
+  );
 }
