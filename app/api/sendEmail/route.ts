@@ -1,13 +1,35 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { env } from "@/env";
 import nodemailer from "nodemailer";
-import { google } from "googleapis";
-
-const OAuth2 = google.auth.OAuth2;
 
 export const POST = async (req: NextRequest) => {
-  const { email, name, company, phone, message } = await req.json();
+  try {
+    const { email, subject, html } = await req.json();
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-  });
+    const transporter = nodemailer.createTransport({
+      host: env.EMAIL_SERVER_HOST,
+      port: Number(env.EMAIL_SERVER_PORT),
+      secure: false, // Use `true` for port 465, `false` for all other ports
+      auth: {
+        user: env.EMAIL_SERVER_USER,
+        pass: env.EMAIL_SERVER_PASSWORD,
+      },
+    });
+
+    if (email) {
+      const res = await transporter.sendMail({
+        from: env.EMAIL_FROM,
+        to: email,
+        subject,
+        html,
+      });
+      console.log("response after sending message:", res);
+    }
+    return NextResponse.json({
+      ok: true,
+      message: "Message has been sent!",
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

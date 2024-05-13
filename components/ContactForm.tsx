@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import FormItem from "./FormItem";
 import { useForm } from "react-hook-form";
 import { IconSend, IconSend2 } from "@tabler/icons-react";
+import useMutation from "@/lib/useMutation";
+// import { sendEmail } from "@/lib/sendEmail";
 
 interface ContactForm {
   email: string;
@@ -12,9 +14,21 @@ interface ContactForm {
   message: string;
 }
 export default function ContactForm() {
-  const { register, handleSubmit } = useForm<ContactForm>();
+  const { register, handleSubmit, watch } = useForm<ContactForm>();
+  const [sendEmail, { data }] = useMutation("/api/sendEmail", "POST");
+  const sendMessage = () => {
+    sendEmail({
+      email: watch("email"),
+      subject: "[CLAVIS WHOLESALE] MESSAGE FROM CLIENT",
+      html: `<a href="localhost:3000">Clavis</a>`,
+    });
+  };
+
   return (
-    <form className="w-full flex flex-col gap-2">
+    <form
+      className="w-full flex flex-col gap-2"
+      onSubmit={handleSubmit(sendMessage)}
+    >
       <FormItem
         register={register}
         type="input"
@@ -26,7 +40,7 @@ export default function ContactForm() {
       <FormItem
         register={register}
         type="input"
-        dataType="email"
+        dataType="text"
         name="name"
         itemTitle="Your name"
         required={false}
@@ -55,7 +69,7 @@ export default function ContactForm() {
         itemTitle="Message"
       />
       <div>
-        <button>
+        <button type="submit">
           Send Message <IconSend2 width="16" />{" "}
         </button>
       </div>
