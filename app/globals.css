@@ -87,15 +87,20 @@
   }
   button,
   .btn {
-    @apply text-sm uppercase bg-slate-800 text-white tracking-[1px] px-4 py-2 rounded mt-2;
+    @apply flex items-center gap-2 text-xs uppercase bg-slate-800 text-white tracking-[1px] px-4 py-2 rounded mt-2;
     &:hover {
       @apply bg-stone-700;
     }
   }
+
+  tbody tr:last-child td {
+    font-size: 15px;
+    @apply font-semibold;
+  }
 }
 
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   opacity: 1;
 }
 
@@ -107,9 +112,4 @@ td {
   div {
     margin: 0 auto;
   }
-}
-
-tbody tr:last-child td {
-  font-size: 15px;
-  @apply font-semibold;
 }

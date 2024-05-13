@@ -24,7 +24,10 @@ export default function FormItem({
 }: FormItemProps) {
   return (
     <div className="w-full ">
-      <label>{itemTitle}</label>
+      <label>
+        {itemTitle}
+        {required && <span className="text-red-500 font-bold">*</span>}
+      </label>
       {type == "input" ? (
         <input
           {...register(name)}

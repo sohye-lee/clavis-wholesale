@@ -8,4 +8,8 @@ export const env = {
   S3_UPLOAD_SECRET: process.env.S3_UPLOAD_SECRET,
   S3_UPLOAD_BUCKET: process.env.S3_UPLOAD_BUCKET,
   S3_UPLOAD_REGION: process.env.S3_UPLOAD_REGION,
+  EMAIL: process.env.EMAIL,
+  REFRESH_TOKEN: process.env.REFRESH_TOKEN,
+  CLIENT_SECRET: process.env.CLIENT_SECRET,
+  CLIENT_ID: process.env.CLIENT_ID,
 };
