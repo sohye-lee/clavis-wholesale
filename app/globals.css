@@ -94,7 +94,22 @@
   }
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   opacity: 1;
+}
+
+td {
+  text-align: center;
+  line-height: 1.2;
+
+  @apply py-2 text-sm;
+  div {
+    margin: 0 auto;
+  }
+}
+
+tbody tr:last-child td {
+  font-size: 15px;
+  @apply font-semibold;
 }

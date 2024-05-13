@@ -1,22 +1,27 @@
-"use client";
-import ProductItem from "@/components/ProductItem";
-import { Product, ProductInfoToOrder } from "@/lib/types";
-import useMutation from "@/lib/useMutation";
-import { useEffect, useState } from "react";
+'use client';
+import ProductItem from '@/components/ProductItem';
+import { Product, ProductInfoToOrder } from '@/lib/types';
+import useMutation from '@/lib/useMutation';
+import { useEffect, useState } from 'react';
+import useStore from './store';
+import useSWR from 'swr';
 
 const initialList: ProductInfoToOrder[] = [];
 
 export default function Home() {
-  const [products, setProducts] = useState<Product[]>();
+  const [products, setProducts] = useState<Product[]>([]);
+  const { data, isLoading } = useSWR('/api/products');
   const [productListToOrder, setProductListToOrder] =
     useState<ProductInfoToOrder[]>(initialList);
-
+  const [total, setTotal] = useState<number>();
+  const { orderList } = useStore();
   useEffect(() => {
-    fetch("/api/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data?.products));
-    console.log(productListToOrder);
-  }, [productListToOrder]);
+    data && data?.ok && setProducts(data?.products);
+    products &&
+      products?.length > 0 &&
+      setTotal(products.map((p) => p.price).reduce((a, b) => a + b));
+    setProductListToOrder(orderList);
+  }, [data, orderList, productListToOrder, products, total]);
   return (
     <div className="w-full">
       <h1 className="text-center uppercase text-3xl tracking-wider mb-5">

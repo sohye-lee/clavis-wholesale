@@ -1,17 +1,21 @@
-"use client";
-import React, { useState } from "react";
-import Logo from "@/public/logo.svg";
-import Link from "next/link";
-import Image from "next/image";
+'use client';
+import React, { useState } from 'react';
+import Logo from '@/public/logo.svg';
+import Link from 'next/link';
+import Image from 'next/image';
 import {
   IconBook2,
   IconHelp,
   IconHistory,
   IconShoppingBag,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
+import useStore from '@/app/store';
 
 export default function Header() {
-  const [orderList, setOrderList] = useState();
+  // const [orderList, setOrderList] = useState();
+  const { orderList, addToOrderList, deleteItemFromList, clearOrderList } =
+    useStore();
+
   return (
     <div className="w-full z-[1000] fixed top-0 left-0 bg-white py-2 px-4 border-b border-slate-400 flex justify-center">
       <div className="w-full max-w-6xl bg-white ">
@@ -28,9 +32,14 @@ export default function Header() {
               <span className="text-[12px]">Catalog</span>
             </Link>
             <Link
-              href="/"
-              className="flex flex-col items-center gap-[2px] text-slate-600"
+              href="/cart"
+              className="relative flex flex-col items-center gap-[2px] text-slate-600"
             >
+              {orderList.length > 0 && (
+                <span className="absolute top-[10%] -right-2 w-5 h-5 rounded-full text-white bg-purple-600 flex items-center justify-center text-[10px]">
+                  {orderList && orderList.length}
+                </span>
+              )}
               <IconShoppingBag className="" size="28" />
               <span className="text-[12px]">Cart</span>
             </Link>

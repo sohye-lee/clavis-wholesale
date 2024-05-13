@@ -1,20 +1,20 @@
-"use client";
-import DeleteProductForm from "@/components/DeleteProductForm";
-import { Product } from "@/lib/types";
-import useMutation from "@/lib/useMutation";
-import { capitalize } from "@/lib/utils";
-import { IconExternalLink } from "@tabler/icons-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+'use client';
+import DeleteProductForm from '@/components/DeleteProductForm';
+import { Product } from '@/lib/types';
+import useMutation from '@/lib/useMutation';
+import { capitalize } from '@/lib/utils';
+import { IconExternalLink } from '@tabler/icons-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function ProductsPage() {
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>();
   const [deleted, setDeleted] = useState(false);
   useEffect(() => {
-    fetch("/api/products")
+    fetch('/api/products')
       .then((res) => res.json())
       .then((data) => setProducts(data?.products));
     deleted && router.refresh();
