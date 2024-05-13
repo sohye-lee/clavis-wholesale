@@ -1,3 +1,4 @@
+"use client";
 import { ProductInfoToOrder } from "@/lib/types";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";

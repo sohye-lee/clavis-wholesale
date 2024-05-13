@@ -23,7 +23,7 @@ export default function CartPage() {
   }, [data, orderList, productListToOrder, products, total]);
   return (
     <div className="w-full max-w-3xl ">
-      <h1 className="text-2xl mb-4 font-medium">Order Form </h1>
+      <h1 className="text-2xl mb-4 font-medium">Order Estimate</h1>
       <table className="w-full">
         <thead>
           <tr className="border-t border-b border-slate-400 bg-slate-800 text-white">
@@ -39,7 +39,7 @@ export default function CartPage() {
               <br />
               Color
             </td>
-            <td>Price</td>
+            <td>MSRP</td>
             <td>Quantity</td>
             <td className="max-w-[80px]"></td>
           </tr>
@@ -63,7 +63,7 @@ export default function CartPage() {
               $
               {data?.products && data?.products?.length > 0
                 ? data?.products
-                    ?.map((p: Product) => p.price)
+                    ?.map((p: Product) => p.msrp)
                     .reduce((a: number, b: number) => a + b)
                 : 0}
             </td>

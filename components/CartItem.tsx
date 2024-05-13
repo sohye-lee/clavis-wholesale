@@ -1,10 +1,10 @@
-'use client';
-import { IconTrash, IconX } from '@tabler/icons-react';
-import Image from 'next/image';
-import React from 'react';
-import useSWR from 'swr';
-import SmallLoader from './SmallLoader';
-import useStore from '@/app/store';
+"use client";
+import { IconTrash, IconX } from "@tabler/icons-react";
+import Image from "next/image";
+import React from "react";
+import useSWR from "swr";
+import SmallLoader from "./SmallLoader";
+import useStore from "@/app/store";
 
 export default function CartItem({
   productId,
@@ -33,7 +33,7 @@ export default function CartItem({
           <td>{data?.product?.title}</td>
           <td>{data?.product?.bandColor}</td>
           <td>{data?.product?.platingColor}</td>
-          <td>${data?.product?.price}</td>
+          <td>${data?.product?.msrp}</td>
           <td>{quantity}</td>
           <td className="max-w-[50px]">
             <button

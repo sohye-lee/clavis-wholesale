@@ -1,18 +1,18 @@
-'use client';
-import useStore from '@/app/store';
-import { Product, ProductInfoToOrder } from '@/lib/types';
-import { capitalize } from '@/lib/utils';
-import { IconExternalLink } from '@tabler/icons-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+"use client";
+import useStore from "@/app/store";
+import { Product, ProductInfoToOrder } from "@/lib/types";
+import { capitalize } from "@/lib/utils";
+import { IconExternalLink } from "@tabler/icons-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, {
   Dispatch,
   FormEvent,
   SetStateAction,
   useEffect,
   useState,
-} from 'react';
+} from "react";
 
 interface ProductItemProps {
   product: Product;
@@ -36,16 +36,20 @@ export default function ProductItem({
   };
   const handleAddToCart = (e: FormEvent) => {
     e.preventDefault();
-    setProductListToOrder((prev) => [
-      ...prev.filter((item) => item.productId !== product.id),
-      { productId: product.id, quantity },
-    ]);
-    addToOrderList([
-      ...productListToOrder.filter((item) => item?.productId != product.id),
-      { productId: product.id, quantity },
-    ]);
+    setProductListToOrder((prev) =>
+      [
+        ...prev.filter((item) => item.productId !== product.id),
+        { productId: product.id, quantity },
+      ].filter((item) => item?.quantity != 0)
+    );
+    addToOrderList(
+      [
+        ...productListToOrder.filter((item) => item?.productId != product.id),
+        { productId: product.id, quantity },
+      ].filter((item) => item?.quantity != 0)
+    );
     router.refresh();
-    console.log('STORE orderlist: ', orderList);
+    console.log("STORE orderlist: ", orderList);
   };
   useEffect(() => {
     setProductListToOrder(orderList);
@@ -59,7 +63,7 @@ export default function ProductItem({
     <div className="relative z-10 bg-white p-4 border border-slate-300 hover:border-slate-500 rounded-lg flex flex-col md:flex-row md:items-stretch gap-3">
       <div className="aspect-square relative w-full md:w-1/2  bg-stone-200">
         <Image
-          src={product.thumbnail || ''}
+          src={product.thumbnail || ""}
           alt={product.title}
           className="object-fill"
           fill
@@ -109,7 +113,9 @@ export default function ProductItem({
               onClick={handleAddToCart}
               className="py-2 px-3 m-0 disabled:bg-slate-400"
             >
-              Add
+              {orderList.map((item) => item.productId).includes(product.id)
+                ? "Update"
+                : "Add"}
             </button>
           </form>
         </div>
@@ -118,7 +124,7 @@ export default function ProductItem({
         <button className="absolute bottom-3 right-3 p-2 text-[12px] bg-white border border-slate-800 text-slate-800 hover:text-white">
           <Link
             className="flex items-center gap-1"
-            href={product.link || '/'}
+            href={product.link || "/"}
             target="_blank"
           >
             <IconExternalLink size={18} />

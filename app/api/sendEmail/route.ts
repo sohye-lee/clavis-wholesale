@@ -23,11 +23,11 @@ export const POST = async (req: NextRequest) => {
         subject,
         html,
       });
-      console.log("response after sending message:", res);
     }
     return NextResponse.json({
       ok: true,
-      message: "Message has been sent!",
+      message:
+        "Your message has been sent! Thank you for reaching out, and our team will get back to you as soon as possible.",
     });
   } catch (error) {
     console.log(error);
