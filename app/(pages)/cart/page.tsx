@@ -1,13 +1,13 @@
-'use client';
-import useStore from '@/app/store';
-import CartItem from '@/components/CartItem';
-import { Product, ProductInfoToOrder } from '@/lib/types';
-import React, { useEffect, useState } from 'react';
-import useSWR from 'swr';
+"use client";
+import useStore from "@/app/store";
+import CartItem from "@/components/CartItem";
+import { Product, ProductInfoToOrder } from "@/lib/types";
+import React, { useEffect, useState } from "react";
+import useSWR from "swr";
 
 export default function CartPage() {
   const [products, setProducts] = useState<Product[]>([]);
-  const { data, isLoading } = useSWR('/api/products');
+  const { data, isLoading } = useSWR("/api/products");
   const [productListToOrder, setProductListToOrder] =
     useState<ProductInfoToOrder[]>();
   const [total, setTotal] = useState<number>();
@@ -16,7 +16,9 @@ export default function CartPage() {
     data && data?.ok && setProducts(data?.products);
     products &&
       products?.length > 0 &&
-      setTotal(products.map((p) => p.price).reduce((a, b) => a + b));
+      setTotal(
+        products ? products.map((p) => p.price).reduce((a, b) => a + b) : 0
+      );
     setProductListToOrder(orderList);
   }, [data, orderList, productListToOrder, products, total]);
   return (
@@ -59,17 +61,17 @@ export default function CartPage() {
             </td>
             <td>
               $
-              {data?.products
+              {data?.products && data?.products?.length > 0
                 ? data?.products
                     ?.map((p: Product) => p.price)
                     .reduce((a: number, b: number) => a + b)
                 : 0}
             </td>
             <td>
-              {' '}
-              {orderList
+              {" "}
+              {orderList && orderList.length > 0
                 ? orderList
-                    ?.map((p) => p.quantity)
+                    .map((p) => p.quantity)
                     .reduce((a: number, b: number) => a + b)
                 : 0}
             </td>
