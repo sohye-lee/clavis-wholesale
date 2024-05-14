@@ -3,16 +3,10 @@ import React, { useState } from "react";
 import Logo from "@/public/logo.svg";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  IconBook2,
-  IconHelp,
-  IconHistory,
-  IconShoppingBag,
-} from "@tabler/icons-react";
+import { IconBook2, IconHelp, IconShoppingBag } from "@tabler/icons-react";
 import useStore from "@/app/store";
 
 export default function Header() {
-  // const [orderList, setOrderList] = useState();
   const { orderList, addToOrderList, deleteItemFromList, clearOrderList } =
     useStore();
 
@@ -29,16 +23,16 @@ export default function Header() {
               className="flex flex-col items-center gap-[2px] text-slate-600"
             >
               <IconBook2 className="" size="28" />
-              <span className="text-[12px]">Catalog</span>
+              <p className="text-[12px]">Catalog</p>
             </Link>
             <Link
               href="/cart"
               className="relative flex flex-col items-center gap-[2px] text-slate-600"
             >
               {orderList.length > 0 && (
-                <span className="absolute top-[10%] left-[50%] translate-x-1 w-5 h-5 rounded-full text-white bg-purple-600 flex items-center justify-center text-[10px]">
+                <p className="absolute top-[10%] left-[50%] translate-x-1 w-5 h-5 rounded-full text-white bg-purple-600 flex items-center justify-center text-[10px]">
                   {orderList && orderList.length}
-                </span>
+                </p>
               )}
               <IconShoppingBag className="" size="28" />
               <span className="text-[12px]">Estimate</span>
@@ -48,15 +42,15 @@ export default function Header() {
               className="flex flex-col items-center gap-[2px] text-slate-600"
             >
               <IconHelp className="" size="28" />
-              <span className="text-[12px]">Contact</span>
+              <p className="text-[12px]">Contact</p>
             </Link>
-            <Link
+            {/* <Link
               href="/orders"
               className="flex flex-col items-center gap-[2px] text-slate-600"
             >
               <IconHistory className="" size="28" />
               <span className="text-[12px]">Orders</span>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

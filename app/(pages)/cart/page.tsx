@@ -22,8 +22,14 @@ export default function CartPage() {
     setProductListToOrder(orderList);
   }, [data, orderList, productListToOrder, products, total]);
   return (
-    <div className="w-full max-w-3xl ">
+    <div className="w-full max-w-3xl">
       <h1 className="text-2xl mb-4 font-medium">Order Estimate</h1>
+      <p className="mb-4 max-w-2xl">
+        Review your selected products and quantities below. <br />
+        For a detailed or adjusted invoice, click &apos;Request Estimate&apos;.
+        <br />
+        We&apos;re here to help tailor your order to your needs.
+      </p>
       <table className="w-full">
         <thead>
           <tr className="border-t border-b border-slate-400 bg-slate-800 text-white">
@@ -56,10 +62,10 @@ export default function CartPage() {
               );
             })}
           <tr className="  border-b border-t  border-slate-400 bg-slate-200 ">
-            <td className="py-3 font-medium text-right pr-5" colSpan={4}>
+            <td className="py-3 font-semibold text-right pr-5" colSpan={4}>
               Total
             </td>
-            <td>
+            <td className="py-3 font-semibold ">
               $
               {data?.products && data?.products?.length > 0
                 ? data?.products
@@ -67,7 +73,7 @@ export default function CartPage() {
                     .reduce((a: number, b: number) => a + b)
                 : 0}
             </td>
-            <td>
+            <td className="py-3 font-semibold ">
               {" "}
               {orderList && orderList.length > 0
                 ? orderList
@@ -78,6 +84,14 @@ export default function CartPage() {
             <td className="max-w-[80px]"></td>
           </tr>
         </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+          </tr>
+        </thead>
       </table>
     </div>
   );

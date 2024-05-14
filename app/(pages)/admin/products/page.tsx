@@ -1,24 +1,24 @@
-'use client';
-import DeleteProductForm from '@/components/DeleteProductForm';
-import { Product } from '@/lib/types';
-import useMutation from '@/lib/useMutation';
-import { capitalize } from '@/lib/utils';
-import { IconExternalLink } from '@tabler/icons-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+"use client";
+import DeleteProductForm from "@/components/DeleteProductForm";
+import { Product } from "@/lib/types";
+import useMutation from "@/lib/useMutation";
+import { capitalize } from "@/lib/utils";
+import { IconExternalLink } from "@tabler/icons-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 export default function ProductsPage() {
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>();
   const [deleted, setDeleted] = useState(false);
+  const { data, isLoading } = useSWR("/api/products");
   useEffect(() => {
-    fetch('/api/products')
-      .then((res) => res.json())
-      .then((data) => setProducts(data?.products));
+    data?.ok && data?.products && setProducts(data?.products);
     deleted && router.refresh();
-  }, [deleted, router]);
+  }, [deleted, router, data]);
   return (
     <div className="w-full">
       <h1 className="text-2xl mb-8 font-medium">All Products</h1>

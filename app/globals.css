@@ -92,11 +92,6 @@
       @apply bg-stone-700;
     }
   }
-
-  tbody tr:last-child td {
-    font-size: 15px;
-    @apply font-semibold;
-  }
 }
 
 input[type="number"]::-webkit-inner-spin-button,
