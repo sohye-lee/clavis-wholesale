@@ -21,8 +21,14 @@ export default function ContactForm() {
   const sendMessage = () => {
     sendEmail({
       email: watch("email"),
-      subject: "[CLAVIS WHOLESALE] MESSAGE FROM CLIENT",
-      html: `<a href="localhost:3000">Clavis</a>`,
+      subject: `[CLAVIS WHOLESALE] MESSAGE FROM CLIENT ${watch("company")}`,
+      html: `<div>
+      <p>Name: ${watch("name")}</p>
+      <p>Company: ${watch("company")} </p>
+      <p>Email: ${watch("email")} </p>
+      <p>Phone: ${watch("phone")} </p>
+      <p>Message: ${watch("message")} </p>
+      </div>`,
     });
   };
 
