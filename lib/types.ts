@@ -15,5 +15,8 @@ export interface Product {
 
 export interface ProductInfoToOrder {
   productId: string;
+  title: string;
+  msrp: number;
+  collection: string;
   quantity: number;
 }

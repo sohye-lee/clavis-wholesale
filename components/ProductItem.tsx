@@ -39,13 +39,25 @@ export default function ProductItem({
     setProductListToOrder((prev) =>
       [
         ...prev.filter((item) => item.productId !== product.id),
-        { productId: product.id, quantity },
+        {
+          productId: product.id,
+          title: product.title,
+          msrp: Number(product.msrp),
+          collection: product.collection || "N/A",
+          quantity,
+        },
       ].filter((item) => item?.quantity != 0)
     );
     addToOrderList(
       [
         ...productListToOrder.filter((item) => item?.productId != product.id),
-        { productId: product.id, quantity },
+        {
+          productId: product.id,
+          title: product.title,
+          msrp: Number(product.msrp),
+          collection: product.collection || "N/A",
+          quantity,
+        },
       ].filter((item) => item?.quantity != 0)
     );
     router.refresh();

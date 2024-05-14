@@ -74,7 +74,9 @@
     @apply bg-background text-foreground;
   }
 } */
-
+* {
+  font-family: "Inter", sans-serif;
+}
 @layer base {
   label {
     @apply text-xs mb-2 uppercase font-medium;
@@ -108,3 +110,30 @@ td {
     margin: 0 auto;
   }
 }
+
+@media print {
+  html,
+  body {
+    /* height: 100vh;  */
+    margin: 0 !important;
+    padding: 30px 20px !important;
+    overflow: hidden;
+  }
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: initial;
+  vertical-align: initial;
+}
+
+/* table img {
+  max-width: 60px !important;
+  max-height: 60px !important;
+} */

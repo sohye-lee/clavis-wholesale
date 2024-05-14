@@ -20,29 +20,31 @@ export default function Header() {
           <div className="flex items-end gap-5">
             <Link
               href="/"
-              className="flex flex-col items-center gap-[2px] text-slate-600"
+              className="flex flex-col items-center gap-[2px] text-slate-600 text-[12px]"
             >
               <IconBook2 className="" size="28" />
-              <p className="text-[12px]">Catalog</p>
+              Catalog
             </Link>
-            <Link
-              href="/cart"
-              className="relative flex flex-col items-center gap-[2px] text-slate-600"
-            >
+            <div className="relative">
               {orderList.length > 0 && (
-                <p className="absolute top-[10%] left-[50%] translate-x-1 w-5 h-5 rounded-full text-white bg-purple-600 flex items-center justify-center text-[10px]">
+                <div className="absolute top-[10%] left-[50%] translate-x-1 w-5 h-5 rounded-full text-white bg-purple-600 flex items-center justify-center text-[10px]">
                   {orderList && orderList.length}
-                </p>
+                </div>
               )}
-              <IconShoppingBag className="" size="28" />
-              <span className="text-[12px]">Estimate</span>
-            </Link>
+              <Link
+                href="/cart"
+                className="relative flex flex-col items-center gap-[2px] text-slate-600 text-[12px]"
+              >
+                <IconShoppingBag className="" size="28" />
+                Estimate
+              </Link>
+            </div>
             <Link
               href="/contact"
-              className="flex flex-col items-center gap-[2px] text-slate-600"
+              className="flex flex-col items-center gap-[2px] text-slate-600 text-[12px]"
             >
               <IconHelp className="" size="28" />
-              <p className="text-[12px]">Contact</p>
+              Contact
             </Link>
             {/* <Link
               href="/orders"

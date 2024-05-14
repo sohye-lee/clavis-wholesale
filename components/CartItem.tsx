@@ -5,6 +5,7 @@ import React from "react";
 import useSWR from "swr";
 import SmallLoader from "./SmallLoader";
 import useStore from "@/app/store";
+import { capitalize, numberWithCommas } from "@/lib/utils";
 
 export default function CartItem({
   productId,
@@ -30,10 +31,11 @@ export default function CartItem({
               />
             </div>
           </td>
+          <td>{capitalize(data?.product?.collection)}</td>
           <td>{data?.product?.title}</td>
           <td>{data?.product?.bandColor}</td>
           <td>{data?.product?.platingColor}</td>
-          <td>${data?.product?.msrp}</td>
+          <td>${numberWithCommas(data?.product?.msrp)}</td>
           <td>{quantity}</td>
           <td className="max-w-[50px]">
             <button
@@ -46,6 +48,9 @@ export default function CartItem({
         </tr>
       ) : (
         <tr className="border-b border-slate-400">
+          <td className="py-2 px-1">
+            <div className="w-full min-h-[42px] bg-slate-100 rounded-md animate-pulse"></div>
+          </td>
           <td className="py-2 px-1">
             <div className="w-full min-h-[42px] bg-slate-100 rounded-md animate-pulse"></div>
           </td>

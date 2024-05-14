@@ -52,7 +52,7 @@ export default function Home() {
       <div className="mb-5 flex items-center justify-center gap-3">
         <div>
           <select
-            className={`border-2 outline-none ${
+            className={`border-2 outline-none py-2 ${
               collection != "" && "bg-purple-700 border-purple-700"
             } border-black bg-black text-white text-sm`}
             onChange={handleCollectionChange}
@@ -67,7 +67,7 @@ export default function Home() {
         </div>
         <div>
           <select
-            className={`border-2 outline-none ${
+            className={`border-2 outline-none py-2 ${
               type != "" && "bg-purple-700 border-purple-700"
             } border-black bg-black text-white text-sm`}
             onChange={handleTypeChange}
@@ -81,7 +81,7 @@ export default function Home() {
           </select>
         </div>
       </div>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-3">
         {products &&
           products?.length > 0 &&
           products
