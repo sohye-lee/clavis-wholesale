@@ -13,7 +13,7 @@ export default function ContactPage() {
         our offerings. Please feel free to fill out the contact form below and
         send it to us, or you can also reach out directly by calling Sean, or by
         emailing us. We look forward to hearing from you and assisting with your
-        wholesale needs!
+        wholesale needs!!
       </p>
       <div className="flex items-center text-md gap-3">
         <IconMail width={20} />
