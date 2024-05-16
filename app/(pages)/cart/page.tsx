@@ -5,10 +5,16 @@ import jsPDF from "jspdf";
 import { Product, ProductInfoToOrder } from "@/lib/types";
 import {
   IconCalculator,
+  IconClearAll,
+  IconClearFormatting,
   IconDownload,
+  IconEraser,
   IconInvoice,
   IconListCheck,
   IconPrinter,
+  IconTrash,
+  IconTrashOff,
+  IconWash,
 } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
@@ -353,12 +359,14 @@ export default function CartPage() {
             Download
           </button>
         </div>
+
+        <div className="mt-3">
+          <button>
+            <IconTrash width={18} /> Clear All
+          </button>
+        </div>
         {sendRequestOpen && (
-          <RequestInvoiceForm
-            setOpen={setSendRequestOpen}
-            html={html}
-            // generatePdf={generatePdf}
-          />
+          <RequestInvoiceForm setOpen={setSendRequestOpen} html={html} />
         )}
       </div>
     );
