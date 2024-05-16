@@ -4,6 +4,7 @@ import FormItem from "./FormItem";
 import { useForm } from "react-hook-form";
 import { IconX } from "@tabler/icons-react";
 import useMutation from "@/lib/useMutation";
+import SmallLoader from "./SmallLoader";
 
 interface SendRequestForm {
   company?: string;
@@ -21,10 +22,8 @@ export default function RequestInvoiceForm({
   html: string;
 }) {
   const { register, handleSubmit, watch, reset } = useForm<SendRequestForm>();
-  const [sendEmail, { data }] = useMutation("/api/sendEmail", "POST");
-  const table1 = document.getElementById("table1");
-  const table2 = document.getElementById("table2");
-  const table3 = document.getElementById("table3");
+  const [sendEmail, { data, loading }] = useMutation("/api/sendEmail", "POST");
+
   const onSubmit = () => {
     sendEmail({
       email: watch("email"),
@@ -48,8 +47,8 @@ export default function RequestInvoiceForm({
       setTimeout(() => {
         setOpen(false);
         reset();
-      }, 3000);
-  }, []);
+      }, 2800);
+  }, [data, reset, setOpen]);
 
   return (
     <div className=" fixed w-screen h-screen z-[10000] top-0 left-0 bg-[rgba(0,0,0,.4)] flex items-center justify-center p-4">
@@ -60,50 +59,59 @@ export default function RequestInvoiceForm({
         >
           <IconX width={20} />
         </div>
-        <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-          <h1 className="text-2xl font-medium">Send Invoice Request</h1>
-          <FormItem
-            type="input"
-            dataType="text"
-            name="email"
-            itemTitle="Email"
-            required={true}
-            register={register}
-          />
-          <FormItem
-            type="input"
-            dataType="text"
-            name="company"
-            itemTitle="Company"
-            required={false}
-            register={register}
-          />
-          <FormItem
-            type="input"
-            dataType="text"
-            name="name"
-            itemTitle="Your Name"
-            required={false}
-            register={register}
-          />
+        {data?.message ? (
+          <div className="text-purple-600 text-md">{data?.message}</div>
+        ) : (
+          <form
+            className="flex flex-col gap-3"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <h1 className="text-2xl font-medium">Send Invoice Request</h1>
+            <FormItem
+              type="input"
+              dataType="text"
+              name="email"
+              itemTitle="Email"
+              required={true}
+              register={register}
+            />
+            <FormItem
+              type="input"
+              dataType="text"
+              name="company"
+              itemTitle="Company"
+              required={false}
+              register={register}
+            />
+            <FormItem
+              type="input"
+              dataType="text"
+              name="name"
+              itemTitle="Your Name"
+              required={false}
+              register={register}
+            />
 
-          <FormItem
-            type="input"
-            dataType="text"
-            name="phone"
-            itemTitle="Phone #"
-            required={false}
-            register={register}
-          />
-          <FormItem
-            type="textarea"
-            name="message"
-            itemTitle="Message"
-            required={false}
-            register={register}
-          />
-          <button type="submit">Send Request</button>
-        </form>
+            <FormItem
+              type="input"
+              dataType="text"
+              name="phone"
+              itemTitle="Phone #"
+              required={false}
+              register={register}
+            />
+            <FormItem
+              type="textarea"
+              name="message"
+              itemTitle="Message"
+              required={false}
+              register={register}
+            />
+            <button type="submit">
+              {loading ? <SmallLoader /> : "Send Request"}
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

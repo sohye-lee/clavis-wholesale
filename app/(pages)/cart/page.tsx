@@ -5,16 +5,13 @@ import jsPDF from "jspdf";
 import { Product, ProductInfoToOrder } from "@/lib/types";
 import {
   IconCalculator,
-  IconClearAll,
-  IconClearFormatting,
+  IconCategory2,
   IconDownload,
-  IconEraser,
+  IconHome,
   IconInvoice,
   IconListCheck,
   IconPrinter,
   IconTrash,
-  IconTrashOff,
-  IconWash,
 } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
@@ -24,10 +21,12 @@ import CartItemByCollection from "@/components/CartItemByCollection";
 import { collections } from "@/lib/constants";
 import { numberWithCommas } from "@/lib/utils";
 import autoTable from "jspdf-autotable";
-import { uuid } from "next-s3-upload";
 import RequestInvoiceForm from "@/components/RequestInvoiceForm";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function CartPage() {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [sendRequestOpen, setSendRequestOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -36,7 +35,7 @@ export default function CartPage() {
   const [productListToOrder, setProductListToOrder] =
     useState<ProductInfoToOrder[]>();
   const [total, setTotal] = useState<number>();
-  const { orderList } = useStore();
+  const { orderList, clearOrderList } = useStore();
 
   const handlePrint = useReactToPrint({
     content: () => ref.current!,
@@ -206,11 +205,15 @@ export default function CartPage() {
   </table>
   </div>`;
 
+  const handleClearOrderList = () => {
+    alert("Are you sure you want to empty your list?");
+    clearOrderList();
+  };
   useEffect(() => {
     data && data?.ok && setProducts(data?.products);
     setProductListToOrder(orderList);
     setMounted(true);
-  }, [data, orderList, productListToOrder, products, total]);
+  }, [data, orderList, productListToOrder, products, total, clearOrderList]);
 
   if (mounted)
     return (
@@ -360,10 +363,16 @@ export default function CartPage() {
           </button>
         </div>
 
-        <div className="mt-3">
-          <button>
-            <IconTrash width={18} /> Clear All
-          </button>
+        <div className="mt-3 inline-block">
+          {orderList.length > 0 ? (
+            <button className="bg-white hover:bg-slate-100 border-red-500 text-500">
+              <IconTrash width={18} /> Clear All
+            </button>
+          ) : (
+            <Link href="/" className="btn text-white">
+              <IconCategory2 width={18} /> Go Back to Catalog
+            </Link>
+          )}
         </div>
         {sendRequestOpen && (
           <RequestInvoiceForm setOpen={setSendRequestOpen} html={html} />
