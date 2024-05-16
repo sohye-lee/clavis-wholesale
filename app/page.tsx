@@ -1,7 +1,6 @@
 "use client";
 import ProductItem from "@/components/ProductItem";
 import { Product, ProductInfoToOrder } from "@/lib/types";
-import useMutation from "@/lib/useMutation";
 import { FormEvent, useEffect, useState } from "react";
 import useStore from "./store";
 import useSWR from "swr";
@@ -15,7 +14,6 @@ export default function Home() {
   const { data, isLoading } = useSWR("/api/products");
   const [productListToOrder, setProductListToOrder] =
     useState<ProductInfoToOrder[]>(initialList);
-  const [total, setTotal] = useState<number>();
   const { orderList } = useStore();
 
   const [collection, setCollection] = useState("");
@@ -33,14 +31,12 @@ export default function Home() {
 
   useEffect(() => {
     data && data?.ok && setProducts(data?.products);
-    products &&
-      products?.length > 0 &&
-      setTotal(products.map((p) => p.price).reduce((a, b) => a + b));
+
     setProductListToOrder(orderList);
-  }, [data, orderList, productListToOrder, products, total, collection, type]);
+  }, [data, orderList, productListToOrder, products, collection, type]);
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <h1 className="text-center uppercase text-3xl tracking-wider mb-5">
         Clavis Wholesale
       </h1>

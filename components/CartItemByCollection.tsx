@@ -1,9 +1,6 @@
 "use client";
-import { IconTrash, IconX } from "@tabler/icons-react";
-import Image from "next/image";
 import React from "react";
 import useSWR from "swr";
-import useStore from "@/app/store";
 import { capitalize, numberWithCommas } from "@/lib/utils";
 import { ProductInfoToOrder } from "@/lib/types";
 
@@ -15,7 +12,6 @@ export default function CartItemByCollection({
   orderInfoList: ProductInfoToOrder[];
 }) {
   const { data } = useSWR(`/api/${collection}`);
-  const { deleteItemFromList } = useStore();
   const totalQt = orderInfoList
     .map((i) => i.quantity)
     .reduce((a, b) => a + b, 0);
@@ -25,7 +21,7 @@ export default function CartItemByCollection({
     .reduce((a, b) => a + b, 0);
 
   let afterMargin =
-    totalQt < 0
+    totalQt < 10
       ? 100
       : totalQt >= 10 && totalQt <= 20
       ? 65
@@ -46,9 +42,19 @@ export default function CartItemByCollection({
             ))}
           </td>
           <td>{totalQt}</td>
-          <td>{100 - afterMargin}%</td>
+          <td>
+            {100 - afterMargin}%
+            <p className="text-xs text-slate-500">
+              {totalQt < 10 && "MOQ = 10"}
+            </p>
+          </td>
           <td>${numberWithCommas(totalMSRP)}</td>
-          <td>${numberWithCommas((totalMSRP * afterMargin) / 100)}</td>
+          <td>
+            $
+            {numberWithCommas(
+              Math.round(((totalMSRP * afterMargin) / 100) * 100) / 100
+            )}
+          </td>
         </tr>
       ) : (
         <tr className="border-b border-slate-400">

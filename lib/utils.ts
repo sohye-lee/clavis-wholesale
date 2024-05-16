@@ -22,3 +22,9 @@ export const capitalizeSentence = (sentence: string) => {
 export const numberWithCommas = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
+
+// export const generatePDF = (id: string) => {
+//   const element = document.getElementById(id);
+//   html2pdf().from(element).save();
+
+// }
