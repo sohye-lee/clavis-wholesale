@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { email, subject, html } = await req.json();
+    const { email, subject, html, file, filename, url } = await req.json();
 
     const transporter = nodemailer.createTransport({
       host: env.EMAIL_SERVER_HOST,
@@ -22,6 +22,13 @@ export const POST = async (req: NextRequest) => {
         to: email,
         subject,
         html,
+        // attachments: [
+        //   {
+        //     filename,
+        //     path: url,
+        //     contentType: "application/pdf",
+        //   },
+        // ],
       });
     }
     return NextResponse.json({

@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, Ref, SetStateAction } from "react";
+import React, { Dispatch, Ref, SetStateAction, useEffect } from "react";
 import FormItem from "./FormItem";
 import { useForm } from "react-hook-form";
 import { IconX } from "@tabler/icons-react";
@@ -15,11 +15,12 @@ interface SendRequestForm {
 
 export default function RequestInvoiceForm({
   setOpen,
+  html,
 }: {
   setOpen: Dispatch<SetStateAction<boolean>>;
-  // ref: Ref<HTMLElement>;
+  html: string;
 }) {
-  const { register, handleSubmit, watch } = useForm<SendRequestForm>();
+  const { register, handleSubmit, watch, reset } = useForm<SendRequestForm>();
   const [sendEmail, { data }] = useMutation("/api/sendEmail", "POST");
   const table1 = document.getElementById("table1");
   const table2 = document.getElementById("table2");
@@ -30,18 +31,25 @@ export default function RequestInvoiceForm({
       subject: `[CLAVIS WHOLESALE] INVOICE REQUEST FROM CLIENT ${watch(
         "company"
       )}`,
-      html: `<style>td {padding: 8px 12px;} thead {background-color: gray;}</style><div>
+      html: `<style>p {margin-bottom: 12px;}</style><div>
       <p>Name: ${watch("name")}</p>
       <p>Company: ${watch("company")} </p>
       <p>Email: ${watch("email")} </p>
       <p>Phone: ${watch("phone")} </p>
       <p>Message: ${watch("message")} </p>
-      <p>List:<br/>${table1?.innerHTML}<br/>${table2?.innerHTML}<br/>${
-        table3?.innerHTML
-      }</p>
+      <hr style="margin: 30px 0;"/>
+      ${html}
       </div>`,
     });
   };
+  useEffect(() => {
+    data &&
+      data?.ok &&
+      setTimeout(() => {
+        setOpen(false);
+        reset();
+      }, 3000);
+  }, []);
 
   return (
     <div className=" fixed w-screen h-screen z-[10000] top-0 left-0 bg-[rgba(0,0,0,.4)] flex items-center justify-center p-4">

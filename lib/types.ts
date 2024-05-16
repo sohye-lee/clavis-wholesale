@@ -19,4 +19,5 @@ export interface ProductInfoToOrder {
   msrp: number;
   collection: string;
   quantity: number;
+  product: Product;
 }

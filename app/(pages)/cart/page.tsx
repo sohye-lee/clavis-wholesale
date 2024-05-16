@@ -37,13 +37,14 @@ export default function CartPage() {
   });
 
   const today = new Date();
+
   const generatePdf = () => {
     const doc = new jsPDF({
       orientation: "portrait",
       unit: "px",
       format: "letter",
     });
-    var img = new Image();
+    var img: HTMLImageElement = new Image();
     img.src = "logo.png";
     doc.addImage(img, "png", 30, 30, 40, 10);
     doc.text(
@@ -65,8 +66,15 @@ export default function CartPage() {
       tableWidth: 200,
     });
 
-    doc.output("pdfobjectnewwindow", { filename: `clavis-${uuid()}.pdf` });
-    doc.save(`clavis-${Date.now()}.pdf`);
+    const filename = `clavis-${Date.now()}.pdf`;
+    var blob = doc.output("blob");
+    const url = URL.createObjectURL(blob);
+
+    const file = new File([blob], filename);
+    window.open(url);
+
+    // return { file: file, filename: filename, url: url };
+    // save ? doc.save(filename) : doc.output("pdfobjectnewwindow", { filename });
   };
 
   let orderListByCollection: { [key: string]: ProductInfoToOrder[] } = {};
@@ -78,6 +86,7 @@ export default function CartPage() {
     }
   });
 
+  console.log(orderListByCollection);
   let infoByCollection: {
     [key: string]: { TotalMSRP: number; TotalQty: number };
   } = {};
@@ -122,16 +131,75 @@ export default function CartPage() {
   const handleFormOpen = () => {
     setSendRequestOpen(true);
   };
+
+  let table2HtmlArray = [];
+  for (const key in orderListByCollection) {
+    const totalQty = orderListByCollection[key]
+      .map((o) => Number(o.quantity))
+      .reduce((a, b) => a + b, 0);
+    const collectionHtml = `<tr>
+    <td style="padding: 8px 12px; border-top: 1px solid #333;">${key}</td>
+    <td style="padding: 8px 12px; border-top: 1px solid #333;">${orderListByCollection[
+      key
+    ].map((o) => `${o.title} * ${o.quantity}`)}</td>
+    <td style="padding: 8px 12px; border-top: 1px solid #333;">${totalQty}</td>
+          <td style="padding: 8px 12px; border-top: 1px solid #333;">${
+            100 - getAfterMarginPrice(totalQty)
+          }%</td>
+    <td style="padding: 8px 12px; border-top: 1px solid #333;">${totalMSRP}</td>
+    <td style="padding: 8px 12px; border-top: 1px solid #333;">${totalWP}</td>
+    </tr>
+    `;
+    table2HtmlArray.push(collectionHtml);
+  }
+  const html = `
+  <h1>Invoice Request</h1>
+  <table style="border: 1px solid #333;">
+  <thead>
+  <tr>
+  <td style="padding: 8px 12px; font-weight: 500;">Collection</td>
+  <td style="padding: 8px 12px; font-weight: 500;">Type</td>
+  <td style="padding: 8px 12px; font-weight: 500;">Band</td>
+  <td style="padding: 8px 12px; font-weight: 500;">Metal</td>
+  <td style="padding: 8px 12px; font-weight: 500;">Quantity</td>
+  </tr></thead>
+  <tbody>
+  ${orderList
+    .map(
+      (item) => `<tr style="border-top: 1px solid #333;">
+  <td style="padding: 8px 12px; border-top: 1px solid #333;">${item.product?.collection}</td>
+  <td style="padding: 8px 12px; border-top: 1px solid #333;">${item.product?.type}</td>
+  <td style="padding: 8px 12px; border-top: 1px solid #333;">${item.product?.bandColor}</td>
+  <td style="padding: 8px 12px; border-top: 1px solid #333;">${item.product?.platingColor}</td>
+  <td style="padding: 8px 12px; border-top: 1px solid #333;">${item.quantity}</td>
+  </tr>`
+    )
+    .join("")}
+  </tbody>
+  </table>
+  <h4 style="font-weight: 500;">Itemized Estimate</h4>
+  <table style="border: 1px solid #333;">
+  <thead>
+  <tr>
+  <td style="padding: 8px 12px; font-weight: 500;">Collection</td>
+  <td style="padding: 8px 12px; font-weight: 500;">Product * Quantity</td>
+  <td style="padding: 8px 12px; font-weight: 500;">Total Qty</td>
+  <td style="padding: 8px 12px; font-weight: 500;">Margin</td>
+  <td style="padding: 8px 12px; font-weight: 500;">Total MSRP</td>
+  <td style="padding: 8px 12px; font-weight: 500;">Total WP(*)</td>
+  </tr></thead>
+  <tbody>
+  ${table2HtmlArray.join("")}
+  </tbody>
+  </table>
+  </div>`;
+
   useEffect(() => {
     data && data?.ok && setProducts(data?.products);
-    products &&
-      products?.length > 0 &&
-      setTotal(
-        products ? products.map((p) => p.price).reduce((a, b) => a + b) : 0
-      );
     setProductListToOrder(orderList);
     setMounted(true);
   }, [data, orderList, productListToOrder, products, total]);
+
   if (mounted)
     return (
       <div className="w-full max-w-3xl relative">
@@ -160,6 +228,7 @@ export default function CartPage() {
                 <td className="py-2">Image</td>
                 <td>Collection</td>
                 <td>Product</td>
+                <td>Type</td>
                 <td>Band</td>
                 <td>Metal</td>
                 <td>MSRP</td>
@@ -278,7 +347,13 @@ export default function CartPage() {
             Download
           </button>
         </div>
-        {sendRequestOpen && <RequestInvoiceForm setOpen={setSendRequestOpen} />}
+        {sendRequestOpen && (
+          <RequestInvoiceForm
+            setOpen={setSendRequestOpen}
+            html={html}
+            // generatePdf={generatePdf}
+          />
+        )}
       </div>
     );
 }

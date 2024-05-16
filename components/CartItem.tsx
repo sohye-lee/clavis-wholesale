@@ -33,6 +33,7 @@ export default function CartItem({
           </td>
           <td>{capitalize(data?.product?.collection)}</td>
           <td>{data?.product?.title}</td>
+          <td>{capitalize(data?.product?.type)}</td>
           <td>{data?.product?.bandColor}</td>
           <td>{data?.product?.platingColor}</td>
           <td>${numberWithCommas(data?.product?.msrp)}</td>
@@ -48,6 +49,9 @@ export default function CartItem({
         </tr>
       ) : (
         <tr className="border-b border-slate-400">
+          <td className="py-2 px-1">
+            <div className="w-full min-h-[42px] bg-slate-100 rounded-md animate-pulse"></div>
+          </td>
           <td className="py-2 px-1">
             <div className="w-full min-h-[42px] bg-slate-100 rounded-md animate-pulse"></div>
           </td>

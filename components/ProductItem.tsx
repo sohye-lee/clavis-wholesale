@@ -45,6 +45,7 @@ export default function ProductItem({
           msrp: Number(product.msrp),
           collection: product.collection || "N/A",
           quantity,
+          product: product,
         },
       ].filter((item) => item?.quantity != 0)
     );
@@ -57,6 +58,7 @@ export default function ProductItem({
           msrp: Number(product.msrp),
           collection: product.collection || "N/A",
           quantity,
+          product: product,
         },
       ].filter((item) => item?.quantity != 0)
     );
