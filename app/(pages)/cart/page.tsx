@@ -365,11 +365,14 @@ export default function CartPage() {
 
         <div className="mt-3 inline-block">
           {orderList.length > 0 ? (
-            <button className="bg-white hover:bg-slate-100 border-red-500 text-500">
+            <button
+              className="bg-white hover:bg-slate-100 border-2 border-red-500 font-semibold text-red-500"
+              onClick={handleClearOrderList}
+            >
               <IconTrash width={18} /> Clear All
             </button>
           ) : (
-            <Link href="/" className="btn text-white">
+            <Link className="btn" href="/">
               <IconCategory2 width={18} /> Go Back to Catalog
             </Link>
           )}
