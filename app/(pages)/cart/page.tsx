@@ -137,6 +137,10 @@ export default function CartPage() {
     const totalQty = orderListByCollection[key]
       .map((o) => Number(o.quantity))
       .reduce((a, b) => a + b, 0);
+    const sumMSRP = orderListByCollection[key]
+      .map((o) => o.quantity * o.msrp)
+      .reduce((a, b) => a + b, 0);
+
     const collectionHtml = `<tr>
     <td style="padding: 8px 12px; border-top: 1px solid #333;">${key}</td>
     <td style="padding: 8px 12px; border-top: 1px solid #333;">${orderListByCollection[
@@ -146,8 +150,10 @@ export default function CartPage() {
           <td style="padding: 8px 12px; border-top: 1px solid #333;">${
             100 - getAfterMarginPrice(totalQty)
           }%</td>
-    <td style="padding: 8px 12px; border-top: 1px solid #333;">${totalMSRP}</td>
-    <td style="padding: 8px 12px; border-top: 1px solid #333;">${totalWP}</td>
+    <td style="padding: 8px 12px; border-top: 1px solid #333;">${sumMSRP}</td>
+    <td style="padding: 8px 12px; border-top: 1px solid #333;">${
+      (sumMSRP * getAfterMarginPrice(totalQty)) / 100
+    }</td>
     </tr>
     `;
     table2HtmlArray.push(collectionHtml);
