@@ -11,7 +11,10 @@ export default function AdminPWForm({
   setVerified: Dispatch<SetStateAction<boolean>>;
 }) {
   const onSubmit = (validForm: AdminPWForm) => {
-    localStorage.setItem("admin_verified", JSON.stringify(validForm.password));
+    sessionStorage.setItem(
+      "admin_verified",
+      JSON.stringify(validForm.password)
+    );
     setVerified(true);
   };
 

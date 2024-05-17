@@ -15,7 +15,7 @@ const $LOCAL_ORDER_LIST = "order_list";
 const getOrderList = () => {
   const localData =
     typeof window !== "undefined"
-      ? localStorage.getItem($LOCAL_ORDER_LIST)
+      ? sessionStorage.getItem($LOCAL_ORDER_LIST)
       : "[]";
   return localData ? JSON.parse(localData) : [];
 };
@@ -25,7 +25,7 @@ const useStore = create<OrderListStoreState>((set) => ({
   addToOrderList: (orderList) =>
     set(() => {
       if (typeof window !== "undefined")
-        localStorage.setItem($LOCAL_ORDER_LIST, JSON.stringify(orderList));
+        sessionStorage.setItem($LOCAL_ORDER_LIST, JSON.stringify(orderList));
       return { orderList: orderList };
     }),
   deleteItemFromList: (productId: string) =>
@@ -35,13 +35,13 @@ const useStore = create<OrderListStoreState>((set) => ({
       );
 
       if (typeof window !== "undefined")
-        localStorage.setItem($LOCAL_ORDER_LIST, JSON.stringify(orderList));
+        sessionStorage.setItem($LOCAL_ORDER_LIST, JSON.stringify(orderList));
       return { orderList: orderList };
     }),
   clearOrderList: () =>
     set(() => {
       if (typeof window !== "undefined")
-        localStorage.setItem($LOCAL_ORDER_LIST, JSON.stringify([]));
+        sessionStorage.setItem($LOCAL_ORDER_LIST, JSON.stringify([]));
       return { orderList: [] };
     }),
 }));

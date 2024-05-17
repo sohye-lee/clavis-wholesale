@@ -15,7 +15,7 @@ export default function AdminPage() {
   const [verified, setVerified] = useState(false);
 
   useEffect(() => {
-    const stored_pw = localStorage.getItem("admin_verified") || "";
+    const stored_pw = sessionStorage.getItem("admin_verified") || "";
     const admin_verified = JSON.parse(stored_pw) == env.ADMIN_PASSWORD;
     admin_verified && setVerified(true);
   }, []);
