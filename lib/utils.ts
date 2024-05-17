@@ -5,7 +5,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const capitalize = (string: string) => {
+export const capitalize = (string: string | null) => {
+  if (!string) return "";
   return string[0].toUpperCase().concat(string.slice(1));
 };
 
@@ -22,9 +23,3 @@ export const capitalizeSentence = (sentence: string) => {
 export const numberWithCommas = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
-
-// export const generatePDF = (id: string) => {
-//   const element = document.getElementById(id);
-//   html2pdf().from(element).save();
-
-// }

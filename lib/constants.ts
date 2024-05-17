@@ -6,6 +6,7 @@ export const bandColors = [
   "White",
   "Purple",
   "Brown",
+  "Red",
   "Black Pink",
   "Hot Pink",
   "Pastel Pink",

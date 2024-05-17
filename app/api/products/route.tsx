@@ -1,9 +1,12 @@
 import db from "@/prisma/db";
+import { Product } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async () => {
   try {
-    const products = await db.product.findMany();
+    const products: Product[] = (await db.product.findMany()).sort((a, b) =>
+      a.title > b.title ? 1 : a.title < b.title ? -1 : 0
+    );
     return NextResponse.json({ ok: true, products });
   } catch (error) {
     console.log(error);
@@ -16,6 +19,7 @@ export const POST = async (req: NextRequest) => {
       title,
       type,
       description,
+      collection,
       bandColor,
       platingColor,
       price,
@@ -29,6 +33,7 @@ export const POST = async (req: NextRequest) => {
         title,
         type,
         description,
+        collection,
         bandColor,
         platingColor,
         price: Number(price),

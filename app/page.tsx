@@ -54,11 +54,13 @@ export default function Home() {
             onChange={handleCollectionChange}
           >
             <option value="">Collection</option>
-            {collections.map((c, i) => (
-              <option key={i} value={c}>
-                {capitalize(c)}
-              </option>
-            ))}
+            {collections
+              .sort((a, b) => (a > b ? 1 : a < b ? -1 : 0))
+              .map((c, i) => (
+                <option key={i} value={c}>
+                  {capitalize(c)}
+                </option>
+              ))}
           </select>
         </div>
         <div>

@@ -15,7 +15,7 @@ model Product {
   description String?
   bandColor String?
   platingColor  String?
-  price Int 
+  price Int @default(0)
   msrp Int @default(0)
   thumbnail String?
   images String[] 

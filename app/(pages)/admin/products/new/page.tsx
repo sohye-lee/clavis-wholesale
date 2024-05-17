@@ -2,7 +2,12 @@
 
 import FormItem from "@/components/FormItem";
 import SelectItem from "@/components/SelectItem";
-import { bandColors, platingColors, productTypes } from "@/lib/constants";
+import {
+  bandColors,
+  collections,
+  platingColors,
+  productTypes,
+} from "@/lib/constants";
 import useMutation from "@/lib/useMutation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -10,14 +15,17 @@ import { useForm } from "react-hook-form";
 import { IconPhoto } from "@tabler/icons-react";
 import { useS3Upload } from "next-s3-upload";
 import Image from "next/image";
+import Link from "next/link";
+import { capitalize } from "@/lib/utils";
 
 interface ProductForm {
   title: string;
   type: string;
+  collection?: string;
   description?: string;
   bandColor?: string;
   platingColor?: string;
-  price: number;
+  price?: number;
   msrp: number;
   thumbnail?: string;
   images?: string[];
@@ -95,8 +103,19 @@ export default function AddProductPage() {
             placeholder="Product Type"
             required={false}
             options={productTypes.map((type) => ({
-              name: type,
+              name: capitalize(type),
               value: type,
+            }))}
+          />
+          <SelectItem
+            register={register}
+            itemTitle="Collection"
+            name="collection"
+            placeholder="Collection"
+            required={false}
+            options={collections.map((collection) => ({
+              name: capitalize(collection),
+              value: collection,
             }))}
           />
           <FormItem
@@ -137,7 +156,7 @@ export default function AddProductPage() {
             dataType="number"
             placeholder="0"
             step=".01"
-            required={true}
+            required={false}
           />
           <FormItem
             register={register}
@@ -159,8 +178,11 @@ export default function AddProductPage() {
             required={false}
           />
 
-          <div>
+          <div className="flex items-center gap-3">
             <button type="submit">Create</button>
+            <Link href="/admin/products" className="btn btn-white">
+              Go to Product List
+            </Link>
           </div>
         </form>
       </div>

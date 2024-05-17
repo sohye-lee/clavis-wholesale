@@ -94,6 +94,13 @@
     &:hover {
       @apply bg-stone-700;
     }
+    &.btn-white {
+      @apply bg-white text-slate-800 border border-slate-800;
+
+      &:hover {
+        @apply bg-stone-100;
+      }
+    }
   }
 
   td {

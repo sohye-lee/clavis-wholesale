@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import Logo from "@/public/logo.svg";
 import Link from "next/link";
 import Image from "next/image";
-import { IconBook2, IconHelp, IconShoppingBag } from "@tabler/icons-react";
+import {
+  IconBook2,
+  IconCloudDownload,
+  IconHelp,
+  IconShoppingBag,
+} from "@tabler/icons-react";
 import useStore from "@/app/store";
 
 export default function Header() {
@@ -15,18 +20,30 @@ export default function Header() {
   }, []);
   if (mounted)
     return (
-      <div className="w-full z-[1000] fixed top-0 left-0 bg-white py-2 px-4 border-b border-slate-400 flex justify-center">
-        <div className="w-full max-w-6xl flex items-center justify-between">
+      <div className="w-full z-[1000] fixed top-0 left-0 bg-white py-2 px-4 border-b border-slate-300 flex justify-center">
+        <div className="w-full max-w-6xl flex items-center justify-center sm:justify-between">
           <Link href="/">
-            <Image alt="logo" width="400" src={Logo} className="w-24" />
+            <Image
+              alt="logo"
+              width="400"
+              src={Logo}
+              className="w-20 md:w-24 m-0"
+            />
           </Link>
-          <div className="flex items-end gap-5">
+          <div className="hidden sm:flex items-end gap-5 ">
             <Link
               href="/"
               className="flex flex-col items-center gap-[2px] text-slate-600 text-[12px]"
             >
               <IconBook2 className="" size="28" />
               Catalog
+            </Link>
+            <Link
+              href="/"
+              className="flex flex-col items-center gap-[2px] text-slate-600 text-[12px]"
+            >
+              <IconCloudDownload className="" size="28" />
+              Download
             </Link>
             <Link
               href="/cart"

@@ -21,9 +21,9 @@ export default function ProductsPage() {
   }, [deleted, router, data]);
   return (
     <div className="w-full">
-      <h1 className="text-2xl mb-8 font-medium">All Products</h1>
-      <div className="">
-        <Link href="/admin/products/new" className="float-right btn mb-3">
+      <div className="flex w-full justify-between items-end mb-5">
+        <h1 className="text-2xl  font-medium">All Products</h1>
+        <Link href="/admin/products/new" className="float-right btn  ">
           Add New
         </Link>
       </div>
@@ -60,8 +60,8 @@ export default function ProductsPage() {
                     </div>
                   </td>
                   <td>{product?.title}</td>
-                  <td>{capitalize(product?.type)}</td>
-                  <td>{product?.collection}</td>
+                  <td>{capitalize(product?.type || "")}</td>
+                  <td>{capitalize(product?.collection || "")}</td>
                   <td>{product?.bandColor}</td>
                   <td>{product?.platingColor}</td>
                   <td>${product?.price}</td>
@@ -74,6 +74,7 @@ export default function ProductsPage() {
                   <td>
                     <div className="inline-flex gap-2">
                       <Link
+                        target="_blank"
                         href={`/admin/products/edit/${product?.id}`}
                         className="btn bg-white m-0 text-slate-700 px-2 py-1 border text-sm border-slate-400 rounded hover:bg-slate-800 hover:text-white"
                       >

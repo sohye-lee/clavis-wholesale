@@ -112,7 +112,6 @@ export default function EditProductPage() {
                 type="input"
                 placeholder="Title"
                 required={true}
-                // defaultValue={product?.title}
               />
               <SelectItem
                 register={register}
@@ -121,10 +120,9 @@ export default function EditProductPage() {
                 placeholder="Product Type"
                 required={false}
                 options={productTypes.map((type) => ({
-                  name: type,
+                  name: capitalize(type),
                   value: type,
                 }))}
-                // defaultValue={product?.type}
               />
               <SelectItem
                 register={register}
@@ -136,7 +134,6 @@ export default function EditProductPage() {
                   name: capitalize(collection),
                   value: collection,
                 }))}
-                // defaultValue={product?.collection}
               />
               <FormItem
                 register={register}
@@ -146,7 +143,6 @@ export default function EditProductPage() {
                 placeholder="Description"
                 required={false}
                 rows={8}
-                // defaultValue={product?.description}
               />
               <SelectItem
                 register={register}
@@ -158,7 +154,6 @@ export default function EditProductPage() {
                   name: bandColor,
                   value: bandColor,
                 }))}
-                // defaultValue={product?.bandColor}
               />
               <SelectItem
                 register={register}
@@ -170,7 +165,6 @@ export default function EditProductPage() {
                   name: platingColor,
                   value: platingColor,
                 }))}
-                // defaultValue={product?.platingColor}
               />
               <FormItem
                 register={register}
@@ -180,7 +174,6 @@ export default function EditProductPage() {
                 dataType="number"
                 placeholder="0"
                 required={true}
-                // defaultValue={product?.price}
               />
               <FormItem
                 register={register}
@@ -190,7 +183,6 @@ export default function EditProductPage() {
                 dataType="number"
                 placeholder="0"
                 required={false}
-                // defaultValue={product?.msrp}
               />
               <FormItem
                 register={register}
@@ -200,7 +192,6 @@ export default function EditProductPage() {
                 dataType="text"
                 placeholder="Link"
                 required={false}
-                // defaultValue={product?.link}
               />
 
               <div>
