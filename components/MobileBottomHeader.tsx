@@ -1,9 +1,8 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   IconBook2,
-  IconCloudDownload,
   IconHelp,
   IconListDetails,
   IconShoppingBag,
@@ -12,6 +11,12 @@ import useStore from "@/app/store";
 
 export default function MobileBottomHeader() {
   const { orderList } = useStore();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  if (!mounted) return;
   return (
     <div className="flex sm:hidden bg-white border-t border-slate-300  fixed w-screen bottom-0 left-0 z-[1000] min-h-[60px] items-center justify-center px-4">
       <div className="flex gap-5 justify-between">

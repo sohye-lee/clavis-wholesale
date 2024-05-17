@@ -5,17 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   IconBook2,
-  IconCloudDownload,
   IconHelp,
-  IconListCheck,
   IconListDetails,
   IconShoppingBag,
 } from "@tabler/icons-react";
 import useStore from "@/app/store";
 
 export default function Header() {
-  const { orderList, addToOrderList, deleteItemFromList, clearOrderList } =
-    useStore();
+  const { orderList } = useStore();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
