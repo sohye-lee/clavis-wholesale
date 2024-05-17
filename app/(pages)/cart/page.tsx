@@ -345,7 +345,7 @@ export default function CartPage() {
           </p>
         </div>
 
-        <div className="mt-12 flex gap-3 ">
+        <div className="mt-12 flex gap-3 flex-col md:flex-row">
           <button
             className="bg-purple-500 text-[14px]"
             onClick={handleFormOpen}
