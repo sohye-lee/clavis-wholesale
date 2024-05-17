@@ -1,6 +1,8 @@
+"use client";
 import React, { Dispatch, SetStateAction } from "react";
 import FormItem from "./FormItem";
 import { useForm } from "react-hook-form";
+import useStore from "@/app/store";
 
 interface AdminPWForm {
   password: string;
@@ -10,12 +12,14 @@ export default function AdminPWForm({
 }: {
   setVerified: Dispatch<SetStateAction<boolean>>;
 }) {
+  const { updateAdminStatus } = useStore();
   const onSubmit = (validForm: AdminPWForm) => {
     sessionStorage.setItem(
       "admin_verified",
       JSON.stringify(validForm.password)
     );
     setVerified(true);
+    updateAdminStatus(true);
   };
 
   const { register, handleSubmit } = useForm<AdminPWForm>();

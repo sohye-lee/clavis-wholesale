@@ -1,7 +1,8 @@
 "use client";
+import useStore from "@/app/store";
+import AdminPWForm from "@/components/AdminPWForm";
 import DeleteProductForm from "@/components/DeleteProductForm";
 import { Product } from "@/lib/types";
-import useMutation from "@/lib/useMutation";
 import { capitalize } from "@/lib/utils";
 import { IconExternalLink } from "@tabler/icons-react";
 import Image from "next/image";
@@ -14,11 +15,16 @@ export default function ProductsPage() {
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>();
   const [deleted, setDeleted] = useState(false);
+  const { isAdmin } = useStore();
+  const [verified, setVerified] = useState(false);
   const { data, isLoading } = useSWR("/api/products");
   useEffect(() => {
     data?.ok && data?.products && setProducts(data?.products);
     deleted && router.refresh();
-  }, [deleted, router, data]);
+    isAdmin && setVerified(true);
+  }, [deleted, router, data, isAdmin]);
+
+  if (!isAdmin) return <AdminPWForm setVerified={setVerified} />;
   return (
     <div className="w-full">
       <div className="flex w-full justify-between items-end mb-5">

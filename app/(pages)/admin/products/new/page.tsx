@@ -1,5 +1,4 @@
 "use client";
-
 import FormItem from "@/components/FormItem";
 import SelectItem from "@/components/SelectItem";
 import {
@@ -17,6 +16,8 @@ import { useS3Upload } from "next-s3-upload";
 import Image from "next/image";
 import Link from "next/link";
 import { capitalize } from "@/lib/utils";
+import useStore from "@/app/store";
+import AdminPWForm from "@/components/AdminPWForm";
 
 interface ProductForm {
   title: string;
@@ -32,7 +33,10 @@ interface ProductForm {
   link?: string;
 }
 export default function AddProductPage() {
+  const [verified, setVerified] = useState(false);
   const router = useRouter();
+  const { isAdmin } = useStore();
+
   const {
     register,
     handleSubmit,
@@ -58,7 +62,10 @@ export default function AddProductPage() {
 
   useEffect(() => {
     data && data?.ok && router.push("/admin/products");
-  }, [data, router]);
+    isAdmin && setVerified(true);
+  }, [data, router, isAdmin]);
+
+  if (!verified) return <AdminPWForm setVerified={setVerified} />;
 
   return (
     <div className="w-full max-w-xl">

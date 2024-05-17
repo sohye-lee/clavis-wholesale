@@ -1,4 +1,5 @@
 "use client";
+import useStore from "@/app/store";
 import AdminPWForm from "@/components/AdminPWForm";
 import { env } from "@/env";
 import { collections, productTypes } from "@/lib/constants";
@@ -13,12 +14,15 @@ export default function AdminPage() {
   const { data } = useSWR("/api/products");
 
   const [verified, setVerified] = useState(false);
+  const { isAdmin } = useStore();
 
   useEffect(() => {
-    const stored_pw = sessionStorage.getItem("admin_verified") || "";
-    const admin_verified = JSON.parse(stored_pw) == env.ADMIN_PASSWORD;
-    admin_verified && setVerified(true);
-  }, []);
+    // const stored_pw = sessionStorage.getItem("admin_verified");
+    // const admin_verified = stored_pw
+    //   ? JSON.parse(stored_pw) == env.ADMIN_PASSWORD
+    //   : false;
+    isAdmin && setVerified(true);
+  }, [isAdmin]);
 
   if (!verified) return <AdminPWForm setVerified={setVerified} />;
   return (

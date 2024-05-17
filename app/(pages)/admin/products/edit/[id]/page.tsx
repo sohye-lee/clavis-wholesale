@@ -1,5 +1,4 @@
 "use client";
-
 import FormItem from "@/components/FormItem";
 import SelectItem from "@/components/SelectItem";
 import {
@@ -18,6 +17,8 @@ import Image from "next/image";
 import useSWR from "swr";
 import { capitalize } from "@/lib/utils";
 import FullLoader from "@/components/FullLoader";
+import useStore from "@/app/store";
+import AdminPWForm from "@/components/AdminPWForm";
 
 interface ProductForm {
   title: string;
@@ -33,9 +34,11 @@ interface ProductForm {
 }
 
 export default function EditProductPage() {
+  const [verified, setVerified] = useState(false);
   const path = usePathname();
   const id = path.split("edit/")[1];
   const router = useRouter();
+  const { isAdmin } = useStore();
   const { data: productData, isLoading } = useSWR(`/api/products/${id}`);
 
   const {
@@ -71,7 +74,11 @@ export default function EditProductPage() {
       setThumbnail(productData?.product?.thumbnail);
     }
     data && data?.ok && router.push("/admin/products");
-  }, [data, productData, reset, router]);
+
+    isAdmin && setVerified(true);
+  }, [data, productData, reset, router, isAdmin]);
+
+  if (!verified) return <AdminPWForm setVerified={setVerified} />;
 
   return (
     <div className="w-full max-w-xl">
