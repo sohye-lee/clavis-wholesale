@@ -7,6 +7,8 @@ import {
   IconBook2,
   IconCloudDownload,
   IconHelp,
+  IconListCheck,
+  IconListDetails,
   IconShoppingBag,
 } from "@tabler/icons-react";
 import useStore from "@/app/store";
@@ -39,11 +41,11 @@ export default function Header() {
               Catalog
             </Link>
             <Link
-              href="/"
+              href="/pricesheet"
               className="flex flex-col items-center gap-[2px] text-slate-600 text-[12px]"
             >
-              <IconCloudDownload className="" size="28" />
-              Download
+              <IconListDetails className="" size="28" />
+              Pricesheet
             </Link>
             <Link
               href="/cart"
