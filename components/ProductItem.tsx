@@ -29,9 +29,8 @@ export default function ProductItem({
 
   const { orderList, addToOrderList, deleteItemFromList, clearOrderList } =
     useStore();
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>();
   const handleQuantityChange = (quantity: number) => {
-    console.log(quantity);
     setQuantity(quantity);
   };
   const handleAddToCart = (e: FormEvent) => {
@@ -44,7 +43,7 @@ export default function ProductItem({
           title: product.title,
           msrp: Number(product.msrp),
           collection: product.collection || "N/A",
-          quantity,
+          quantity: quantity ? quantity : 0,
           product: product,
         },
       ].filter((item) => item?.quantity != 0)
@@ -57,7 +56,7 @@ export default function ProductItem({
           title: product.title,
           msrp: Number(product.msrp),
           collection: product.collection || "N/A",
-          quantity,
+          quantity: quantity ? quantity : 0,
           product: product,
         },
       ].filter((item) => item?.quantity != 0)
@@ -116,6 +115,7 @@ export default function ProductItem({
               min="0"
               className="w-16 pl-3 pr-0 py-1"
               value={quantity}
+              placeholder="0"
               onChange={(e: FormEvent<HTMLInputElement>) => {
                 handleQuantityChange(
                   Number((e.target as HTMLInputElement).value)

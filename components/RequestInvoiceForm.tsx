@@ -26,10 +26,11 @@ export default function RequestInvoiceForm({
 
   const onSubmit = () => {
     sendEmail({
-      email: watch("email"),
+      email: "hello@clavismagnetic.com",
       subject: `[CLAVIS WHOLESALE] INVOICE REQUEST FROM CLIENT ${watch(
         "company"
       )}`,
+      cc: watch("email"),
       html: `<style>p {margin-bottom: 12px;}</style><div>
       <p>Name: ${watch("name")}</p>
       <p>Company: ${watch("company")} </p>
