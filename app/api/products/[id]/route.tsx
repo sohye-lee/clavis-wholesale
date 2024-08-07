@@ -77,12 +77,13 @@ export const PUT = async (req: NextRequest, context: any) => {
         { status: 500 }
       );
 
+      console.log('data received:', data)
     const updatedProduct = await db.product.update({
       where: {
         id,
       },
       data: {
-        ...data,
+        ...data, msrp: Number(data.msrp)
       },
     });
     return NextResponse.json({
