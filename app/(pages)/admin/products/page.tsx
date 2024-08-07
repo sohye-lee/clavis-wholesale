@@ -24,7 +24,7 @@ export default function ProductsPage() {
     isAdmin && setVerified(true);
   }, [deleted, router, data, isAdmin]);
 
-  if (!isAdmin) return <AdminPWForm setVerified={setVerified} />;
+  // if (!isAdmin) return <AdminPWForm setVerified={setVerified} />;
   return (
     <div className="w-full">
       <div className="flex w-full justify-between items-end mb-5">

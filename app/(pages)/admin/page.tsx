@@ -17,10 +17,10 @@ export default function AdminPage() {
   const { isAdmin } = useStore();
 
   useEffect(() => {
-    // const stored_pw = sessionStorage.getItem("admin_verified");
-    // const admin_verified = stored_pw
-    //   ? JSON.parse(stored_pw) == env.ADMIN_PASSWORD
-    //   : false;
+    const stored_pw = sessionStorage.getItem("admin_verified");
+    const admin_verified = stored_pw
+      ? JSON.parse(stored_pw) == env.ADMIN_PASSWORD
+      : false;
     isAdmin && setVerified(true);
   }, [isAdmin]);
 

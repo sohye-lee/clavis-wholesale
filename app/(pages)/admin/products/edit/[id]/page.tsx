@@ -78,7 +78,7 @@ export default function EditProductPage() {
     isAdmin && setVerified(true);
   }, [data, productData, reset, router, isAdmin]);
 
-  if (!verified) return <AdminPWForm setVerified={setVerified} />;
+  // if (!verified) return <AdminPWForm setVerified={setVerified} />;
 
   return (
     <div className="w-full max-w-xl">
