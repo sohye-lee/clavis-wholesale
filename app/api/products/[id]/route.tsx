@@ -83,9 +83,10 @@ export const PUT = async (req: NextRequest, context: any) => {
         id,
       },
       data: {
-        ...data, msrp: Number(data.msrp)
+        ...data, msrp: parseFloat(data.msrp), price: parseFloat(data.price)
       },
     });
+    console.log('updated: ', updatedProduct);
     return NextResponse.json({
       ok: true,
       message: "Successfully updated!",

@@ -8,32 +8,32 @@ datasource db {
 }
 
 model Product {
-  id  String @id @default(uuid())
-  title String 
-  type String 
-  collection String?
-  description String?
-  bandColor String?
-  platingColor  String?
-  price Int @default(0)
-  msrp Int @default(0)
-  thumbnail String?
-  images String[] 
-  link String?
+  id           String   @id @default(uuid())
+  title        String
+  type         String
+  collection   String?
+  description  String?
+  bandColor    String?
+  platingColor String?
+  price        Decimal  @default(0) @db.Decimal(9, 2)
+  msrp         Decimal  @default(0) @db.Decimal(9, 2)
+  thumbnail    String?
+  images       String[]
+  link         String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Order {
-  id String @id @default(uuid())
-  products  String[]
-  name  String?
-  company String 
-  email String 
-  phone Int?
+  id            String   @id @default(uuid())
+  products      String[]
+  name          String?
+  company       String
+  email         String
+  phone         Int?
   paymentMethod String?
-  paid  Boolean @default(false)
+  paid          Boolean  @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -42,10 +42,10 @@ model Order {
 }
 
 model Client {
-  id String @id @default(uuid())
+  id      String  @id @default(uuid())
   company String?
-  email String @unique
-  phone Int?
+  email   String  @unique
+  phone   Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
