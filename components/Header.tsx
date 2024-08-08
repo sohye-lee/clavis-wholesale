@@ -8,11 +8,13 @@ import {
   IconHelp,
   IconListDetails,
   IconShoppingBag,
+  IconDashboard
 } from "@tabler/icons-react";
 import useStore from "@/app/store";
 
 export default function Header() {
   const { orderList } = useStore();
+  const { isAdmin } = useStore();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
@@ -63,6 +65,15 @@ export default function Header() {
               <IconHelp className="" size="28" />
               Contact
             </Link>
+            {
+              isAdmin && <Link
+              href="/admin"
+              className="flex flex-col items-center gap-[2px] text-slate-600 text-[12px]"
+            >
+              <IconDashboard className="" size="28" />
+              Admin
+            </Link>
+            }
           </div>
         </div>
       </div>

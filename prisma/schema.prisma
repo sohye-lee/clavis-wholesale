@@ -15,8 +15,8 @@ model Product {
   description  String?
   bandColor    String?
   platingColor String?
-  price        Decimal  @default(0) @db.Decimal(9, 2)
-  msrp         Decimal  @default(0) @db.Decimal(9, 2)
+  price        Decimal  @default(0.00) @db.Decimal(10, 2)
+  msrp         Decimal  @default(0.00) @db.Decimal(10, 2)
   thumbnail    String?
   images       String[]
   link         String?

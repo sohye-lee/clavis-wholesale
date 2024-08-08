@@ -41,7 +41,8 @@ export default function ProductItem({
         {
           productId: product.id,
           title: product.title,
-          msrp: Number(product.msrp),
+          msrp: parseFloat(product.msrp ? product.msrp.toString() : '0'),
+          price: parseFloat(product.price ? product.price.toString() : '0'),
           collection: product.collection || "N/A",
           quantity: quantity ? quantity : 0,
           product: product,
@@ -54,7 +55,8 @@ export default function ProductItem({
         {
           productId: product.id,
           title: product.title,
-          msrp: Number(product.msrp),
+          msrp: parseFloat(product.msrp ? product.msrp.toString() : '0'),
+          price: parseFloat(product.price ? product.price.toString() : '0'),
           collection: product.collection || "N/A",
           quantity: quantity ? quantity : 0,
           product: product,
@@ -92,7 +94,7 @@ export default function ProductItem({
 
             <p className="text-md">
               {/* WSP ${product.price} |{' '} */}
-              <span className=" ">MSRP ${product.msrp}</span>
+              <span className=" ">MSRP ${product.msrp}</span><span className="inline-block mx-2">/</span><span className=" ">WSP ${product.price}</span> 
             </p>
           </div>
           <div>

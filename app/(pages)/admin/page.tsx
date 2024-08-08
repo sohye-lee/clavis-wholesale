@@ -14,15 +14,18 @@ export default function AdminPage() {
   const { data } = useSWR("/api/products");
 
   const [verified, setVerified] = useState(false);
-  const { isAdmin } = useStore();
+  const { isAdmin, updateAdminStatus } = useStore();
 
   useEffect(() => {
     const stored_pw = sessionStorage.getItem("admin_verified");
     const admin_verified = stored_pw
       ? JSON.parse(stored_pw) == env.ADMIN_PASSWORD
       : false;
+      if (admin_verified) {
+        updateAdminStatus(true);
+      }
     isAdmin && setVerified(true);
-  }, [isAdmin]);
+  }, [isAdmin, updateAdminStatus]);
 
   if (!verified) return <AdminPWForm setVerified={setVerified} />;
   return (
